@@ -4,15 +4,16 @@
 #include <limits>
 #include <filesystem>
 #include <unistd.h>
-#include <sys/types.h>
 #include <pwd.h>
 #include <ctype.h>
 
+// Handle invalid/bad input from std::cin
 void ignoreLine()
 {
    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
+// Shorted function version for invalid/bad input handling
 void badInputHandler()
 {
    if(std::cin.eof()){
@@ -57,10 +58,7 @@ int main()
 {
    uid_t uid = geteuid();
    struct passwd* pwd = getpwuid(uid);
-
-   if(pwd != nullptr){
-   }
-
+   
    bool loopHanlder{ true };
    
    while(loopHanlder)
@@ -91,6 +89,10 @@ int main()
          }break;
 
          case 2:{
+            // gets userID of current user
+            uid_t uid = geteuid();
+            struct passwd* pwd = getpwuid(uid);
+            
             std::string directory;
             std::string extra;
             std::string homeDir{};
@@ -101,7 +103,6 @@ int main()
             if(directory[0] == '~'){
                directory.erase(0);
                directory.append(homeDir);
-//               extra[0] = extra[1];
                extra.erase(extra.begin());
                directory.append(extra);
             }
