@@ -55,10 +55,7 @@ void deleteFile(const std::string_view filename)
 }
 
 int main()
-{
-   uid_t uid = geteuid();
-   struct passwd* pwd = getpwuid(uid);
-   
+{  
    bool loopHanlder{ true };
    
    while(loopHanlder)
